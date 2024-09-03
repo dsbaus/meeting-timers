@@ -26,23 +26,19 @@ function calculateTimeRemaining() {
     const now = new Date();
     const targetDateTime = new Date(now.toDateString() + ' ' + targetTime);
 
-    if (targetDateTime < now) {
-        targetDateTime.setDate(targetDateTime.getDate() + 1);
-    }
-
     const timeDifference = targetDateTime - now;
-
-    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000).toString().padStart(2, '0');
-
-    countdownDisplay.textContent = `${hours}:${minutes}:${seconds}`;
 
     if (timeDifference <= 0) {
         clearInterval(countdownInterval);
         countdownDisplay.textContent = '00:00:00';
         stopButton.disabled = true;
         startButton.disabled = false;
+    } else {
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000).toString().padStart(2, '0');
+
+        countdownDisplay.textContent = `${hours}:${minutes}:${seconds}`;
     }
 }
 
