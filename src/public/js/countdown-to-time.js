@@ -8,11 +8,17 @@ const startButton = document.getElementById('startButton');
 const stopButton = document.getElementById('stopButton');
 const resetButton = document.getElementById('resetButton');
 
-// Set the time input to the current time when the page loads
-function setCurrentTime() {
+// Set the time input to the nearest time divisible by 5 minutes ahead of the current time
+function setNearestTimeDivisibleByFive() {
     const now = new Date();
+    let minutes = now.getMinutes();
+    minutes = Math.ceil(minutes / 5) * 5;
+    if (minutes === 60) {
+        minutes = 0;
+        now.setHours(now.getHours() + 1);
+    }
     const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
+    minutes = minutes.toString().padStart(2, '0');
     timeInput.value = `${hours}:${minutes}`;
 }
 
@@ -58,15 +64,13 @@ function stopCountdown() {
 
 function resetCountdown() {
     clearInterval(countdownInterval);
-    countdownDisplay.textContent = '00:00:00';
     startButton.disabled = false;
     stopButton.disabled = true;
     countdownActive = false;
-    setCurrentTime(); // Reset time input to the current time
 }
 
 window.onload = function() {
-    setCurrentTime();
+    setNearestTimeDivisibleByFive();
 };
 
 startButton.addEventListener('click', startCountdown);

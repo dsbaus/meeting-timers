@@ -1,7 +1,6 @@
 let timerInterval;
-let timeRemaining;
+let timeRemaining = 300; // 5 minutes in seconds
 
-const timerInput = document.getElementById('timerInput');
 const timerDisplay = document.getElementById('timerDisplay');
 const startButton = document.getElementById('startButton');
 const stopButton = document.getElementById('stopButton');
@@ -14,9 +13,6 @@ function updateTimerDisplay() {
 }
 
 function startTimer() {
-    timeRemaining = parseInt(timerInput.value, 10) * 60; // Convert minutes to seconds
-    updateTimerDisplay();
-
     timerInterval = setInterval(() => {
         if (timeRemaining > 0) {
             timeRemaining--;
@@ -40,7 +36,7 @@ function stopTimer() {
 
 function resetTimer() {
     clearInterval(timerInterval);
-    timeRemaining = parseInt(timerInput.value, 10) * 60;
+    timeRemaining = 300; // Reset to 5 minutes
     updateTimerDisplay();
     startButton.disabled = false;
     stopButton.disabled = true;
