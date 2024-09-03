@@ -4,98 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Countdown to Specific Time</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-
-        .container {
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            background-color: white;
-            box-shadow: 0px 0px 12px rgba(128,128,128,0.3);
-            padding: 4em;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        #logo {
-            margin-bottom: 20px;
-        }
-
-        #logo img {
-            height: 100px; /* Set the logo size to 100px */
-        }
-
-        #title {
-            font-size: 2em;
-            margin-bottom: 20px;
-            cursor: pointer;
-        }
-
-        #countdown {
-            font-size: 5em;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        #timeInput {
-            font-size: 1.2em;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-
-        #controls {
-            display: flex;
-            gap: 10px;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 1.2em;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: #007BFF;
-            color: white;
-        }
-
-        #stopButton {
-            background-color: #990000;
-        }
-
-        #resetButton {
-            background-color: #fe9600;
-        }
-
-        #stopButton:disabled, button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-
-    </style>
+    <link rel="stylesheet" href="css/countdown-to-time.css">
 </head>
 <body>
     <div class="container">
         <div id="logo">
-            <!-- Replace this with your logo -->
-            <img src="data:image/jpeg;base64,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" alt="Logo">
+            <img src="images/dsb-logo.jpg" alt="Logo">
         </div>
 
         <div id="title" contenteditable="true">Countdown to Specific Time</div>
 
-        <input type="time" id="timeInput" value="12:00" />
+        <input type="time" id="timeInput" />
 
         <div id="countdown">00:00:00</div>
 
@@ -105,69 +24,7 @@
             <button id="resetButton">Reset</button>
         </div>
     </div>
-    <script>
-        let countdownInterval;
-        let targetTime;
-        let countdownActive = false;
 
-        const countdownDisplay = document.getElementById('countdown');
-        const timeInput = document.getElementById('timeInput');
-        const startButton = document.getElementById('startButton');
-        const stopButton = document.getElementById('stopButton');
-        const resetButton = document.getElementById('resetButton');
-
-        function calculateTimeRemaining() {
-            const now = new Date();
-            const targetDateTime = new Date(now.toDateString() + ' ' + targetTime);
-
-            if (targetDateTime < now) {
-                targetDateTime.setDate(targetDateTime.getDate() + 1);
-            }
-
-            const timeDifference = targetDateTime - now;
-
-            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000).toString().padStart(2, '0');
-
-            countdownDisplay.textContent = `${hours}:${minutes}:${seconds}`;
-
-            if (timeDifference <= 0) {
-                clearInterval(countdownInterval);
-                countdownDisplay.textContent = '00:00:00';
-                startButton.disabled = false;
-                stopButton.disabled = true;
-            }
-        }
-
-        function startCountdown() {
-            targetTime = timeInput.value;
-            countdownActive = true;
-            calculateTimeRemaining();
-            countdownInterval = setInterval(calculateTimeRemaining, 1000);
-            startButton.disabled = true;
-            stopButton.disabled = false;
-        }
-
-        function stopCountdown() {
-            clearInterval(countdownInterval);
-            countdownActive = false;
-            startButton.disabled = false;
-            stopButton.disabled = true;
-        }
-
-        function resetCountdown() {
-            clearInterval(countdownInterval);
-            countdownDisplay.textContent = '00:00:00';
-            startButton.disabled = false;
-            stopButton.disabled = true;
-            countdownActive = false;
-        }
-
-        startButton.addEventListener('click', startCountdown);
-        stopButton.addEventListener('click', stopCountdown);
-        resetButton.addEventListener('click', resetCountdown);
-
-    </script>
+    <script src="js/countdown-to-time.js"></script>
 </body>
 </html>

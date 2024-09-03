@@ -1,0 +1,78 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: white;
+    box-shadow: 0px 0px 12px rgba(128,128,128,0.3);
+    padding: 4em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+#logo {
+    margin-bottom: 20px;
+}
+
+#logo img {
+    height: 100px; /* Set the logo size to 100px */
+}
+
+#title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+#countdown {
+    font-size: 5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#timeInput {
+    font-size: 1.2em;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+#controls {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+}
+
+#stopButton {
+    background-color: #990000;
+}
+
+#resetButton {
+    background-color: #fe9600;
+}
+
+#stopButton:disabled, button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
