@@ -64,6 +64,7 @@ function stopCountdown() {
 
 function resetCountdown() {
     clearInterval(countdownInterval);
+    countdownDisplay.textContent = '00:00:00';
     startButton.disabled = false;
     stopButton.disabled = true;
     countdownActive = false;
