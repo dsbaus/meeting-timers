@@ -52,6 +52,25 @@ body {
 #controls {
     display: flex;
     gap: 10px;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    pointer-events: all;
+}
+
+#controls.hidden {
+    opacity: 0;
+    animation: fadeOut 0.5s forwards;
+}
+
+#controls:not(.hidden) {
+    animation: fadeIn 0.5s forwards;
+}
+
+/* Show controls when hovered */
+#controls.hidden:hover , #controls:hover {
+    opacity: 1;
+    pointer-events: all;
+    animation: fadeIn 0.5s forwards;
 }
 
 button {
@@ -75,4 +94,15 @@ button {
 #stopButton:disabled, button:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
+}
+
+/* Keyframes for fade in and fade out animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }

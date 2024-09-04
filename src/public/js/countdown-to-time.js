@@ -1,4 +1,5 @@
 let countdownInterval;
+let hideButtonsTimeout;
 let targetTime;
 let countdownActive = false;
 
@@ -7,6 +8,7 @@ const timeInput = document.getElementById('timeInput');
 const startButton = document.getElementById('startButton');
 const stopButton = document.getElementById('stopButton');
 const resetButton = document.getElementById('resetButton');
+const controls = document.getElementById('controls');
 
 // Set the time input to the nearest time divisible by 5 minutes ahead of the current time
 function setNearestTimeDivisibleByFive() {
@@ -16,6 +18,8 @@ function setNearestTimeDivisibleByFive() {
     if (minutes === 60) {
         minutes = 0;
         now.setHours(now.getHours() + 1);
+    } else if (minutes === 0) {
+        minutes = 5;
     }
     const hours = now.getHours().toString().padStart(2, '0');
     minutes = minutes.toString().padStart(2, '0');
@@ -31,8 +35,7 @@ function calculateTimeRemaining() {
     if (timeDifference <= 0) {
         clearInterval(countdownInterval);
         countdownDisplay.textContent = '00:00:00';
-        stopButton.disabled = true;
-        startButton.disabled = false;
+        stopCountdown();
     } else {
         const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
         const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
@@ -49,10 +52,15 @@ function startCountdown() {
     countdownInterval = setInterval(calculateTimeRemaining, 1000);
     startButton.disabled = true;
     stopButton.disabled = false;
+
+    // Hide the controls after 5 seconds
+    hideButtonsTimeout = setTimeout(hideControls, 5000);
 }
 
 function stopCountdown() {
     clearInterval(countdownInterval);
+    clearTimeout(hideButtonsTimeout);
+    showControls();
     countdownActive = false;
     startButton.disabled = false;
     stopButton.disabled = true;
@@ -64,6 +72,15 @@ function resetCountdown() {
     startButton.disabled = false;
     stopButton.disabled = true;
     countdownActive = false;
+    showControls();
+}
+
+function hideControls() {
+    controls.classList.add('hidden');
+}
+
+function showControls() {
+    controls.classList.remove('hidden');
 }
 
 window.onload = function() {
